@@ -33,7 +33,6 @@ export default function Game() {
         <FishingBoat ref={boatRef} />
         <CameraController targetRef={boatRef} />
       </Suspense>
-      <Sky scale={1000} sunPosition={[500, 150, -1000]} turbidity={0.1} />
     </Canvas>
   );
 }

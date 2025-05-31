@@ -1,5 +1,12 @@
 "use client";
 
+/*
+Author: Vasanth adepu (https://sketchfab.com/vasanthadepu)
+License: CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+Source: https://sketchfab.com/3d-models/fishing-boat-1e0371ad73e14e29a13464a54105e80a
+Title: fishing boat
+*/
+
 import React, {
   useEffect,
   useRef,
@@ -25,7 +32,6 @@ type GLTFResult = GLTF & {
     polySurface202_aiStandardSurface4_0: THREE.Mesh;
     polySurface202_aiStandardSurface4_0_1: THREE.Mesh;
     polySurface202_aiStandardSurface4_0_2: THREE.Mesh;
-    // Diğer mesh'ler varsa onları da ekle
   };
   materials: {
     aiStandardSurface1: THREE.Material;
@@ -76,19 +82,16 @@ export const FishingBoat = forwardRef<THREE.Group>((props, ref) => {
     boat.rotation.x = Math.sin(state.clock.elapsedTime * 3) * 0.05;
     boat.rotation.z = Math.sin(state.clock.elapsedTime * 2) * 0.05;
 
-    // Rotation (yön)
     if (keysPressed["a"]) {
       boat.rotation.y += turnSpeed;
     }
     if (keysPressed["d"]) boat.rotation.y -= turnSpeed;
 
-    // İleri/Geri ivmelenme
     if (keysPressed["w"]) {
       velocity.current = Math.min(velocity.current + acceleration, maxSpeed);
     } else if (keysPressed["s"]) {
       velocity.current = Math.max(velocity.current - acceleration, -maxSpeed);
     } else {
-      // Yavaşlama
       if (velocity.current > 0) {
         velocity.current = Math.max(velocity.current - deceleration, 0);
       } else if (velocity.current < 0) {
@@ -96,7 +99,6 @@ export const FishingBoat = forwardRef<THREE.Group>((props, ref) => {
       }
     }
 
-    // Hareket yönü
     const forward = new THREE.Vector3(
       Math.sin(boat.rotation.y),
       0,
