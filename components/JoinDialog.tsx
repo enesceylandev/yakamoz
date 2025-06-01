@@ -45,8 +45,16 @@ export function JoinDialog({ room }: { room: Room }) {
             setRoomDetail(response.data.room);
             router.push("/room/" + room.party_code);
         } catch (error: unknown) {
-            console.error("Katılım hatası:", error.response?.data || error.message);
-            alert(error.response?.data?.error || "Katılım sırasında hata oluştu.");
+            if (axios.isAxiosError(error)) {
+                console.error("Katılım hatası:", error.response?.data || error.message);
+                alert(error.response?.data?.error || "Katılım sırasında hata oluştu.");
+            } else if (error instanceof Error) {
+                console.error("Katılım hatası:", error.message);
+                alert(error.message);
+            } else {
+                console.error("Katılım hatası:", error);
+                alert("Katılım sırasında hata oluştu.");
+            }
         }
     };
 

@@ -5,9 +5,20 @@ import { supabase } from "@/app/utils/supabase";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 
+type Player = {
+    id: string;
+    username: string;
+    party_code: number;
+    score: number;
+};
+
+type PlayerPresence = {
+    presence_ref: string;
+};
+
 export default function RoomPage() {
     const { user, setUser } = useRoomContext();
-    const [players, setPlayers] = useState<any[]>([]);
+    const [players, setPlayers] = useState<PlayerPresence[] | Player[]>([]);
 
     useEffect(() => {
         if (!user) return;
@@ -48,9 +59,12 @@ export default function RoomPage() {
             <Button onClick={() => console.log(players)}>Gönder</Button>
             <Button onClick={() => handleScor()}>Skor Arttır</Button>
             <ul>
-                {players.map((p, index) => (
-                    <li key={index}>{p.username}</li>
-                ))}
+                {players.map((p, index) => {
+                    if ("username" in p) {
+                        return <li key={index}>{p.username}</li>;
+                    }
+                    return null; // ya da başka fallback
+                })}
             </ul>
         </div>
     );
