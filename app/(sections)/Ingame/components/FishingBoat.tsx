@@ -18,7 +18,6 @@ import { useGLTF } from "@react-three/drei";
 import * as THREE from "three";
 import { useFrame } from "@react-three/fiber";
 import { GLTF } from "three/examples/jsm/Addons.js";
-import { useRoomContext } from "@/app/context/roomContext";
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -43,8 +42,6 @@ type GLTFResult = GLTF & {
 };
 
 export const FishingBoat = forwardRef<THREE.Group>((props, ref) => {
-  const {user, setUser} = useRoomContext();
-
   FishingBoat.displayName = "FishingBoat";
   const group = useRef<THREE.Group>(null);
   const velocity = useRef(0);

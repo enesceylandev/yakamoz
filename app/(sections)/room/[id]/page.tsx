@@ -57,7 +57,8 @@ export default function RoomPage() {
     return () => {
       subscription.unsubscribe()
     }
-  }, [])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []) 
 
   const updateGameDetail = async (newStatus: string) => {
     if (!roomDetail) return

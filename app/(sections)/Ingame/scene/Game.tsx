@@ -1,6 +1,6 @@
 "use client";
 
-import React, { Suspense, useRef, useState, useEffect } from "react";
+import React, { Suspense, useRef, useState } from "react";
 import { Canvas, useFrame, extend } from "@react-three/fiber";
 import { Sky, Environment } from "@react-three/drei";
 import { Water } from "three-stdlib";
@@ -11,7 +11,6 @@ import { FishingBoat } from "../components/FishingBoat";
 import CameraController from "../helpers/CameraControllers";
 import GameInterface from "../components/GameInterface";
 import { Trash } from "../components/Trash";
-import { PlayerPresence, User } from "@/app/utils/types"
 import { useRoomContext } from "@/app/context/roomContext";
 
 extend({ Water });
@@ -28,14 +27,14 @@ function TrashManager({
   onInit,
 }: {
   trashList: TrashItem[];
-  boatRef: React.RefObject<THREE.Group>;
+  boatRef: React.RefObject<THREE.Group | null>;
   removeTrash: (id: number) => void;
   onInit: () => void;
 }) {
   const hasSpawnedInitialTrash = useRef(false);
 
   useFrame(() => {
-    if (!boatRef.current) return;
+    if (!boatRef || !boatRef.current) return;
 
     const boatPos = new THREE.Vector3();
     boatRef.current.getWorldPosition(boatPos);

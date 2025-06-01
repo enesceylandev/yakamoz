@@ -11,7 +11,7 @@ import { useGLTF } from '@react-three/drei'
 import * as THREE from "three"
 import { useFrame } from '@react-three/fiber'
 
-export function Trash(props: any) {
+export function Trash(props) {
   const { nodes, materials } = useGLTF('/models/low_poly_trash_bag.glb')
   const group = useRef<THREE.Group>(null);
 
