@@ -28,4 +28,8 @@ interface UserContextType {
     loadingUser: boolean;
 }
 
-export type { Room, User, RoomContextType, UserContextType };
+interface PlayerPresence {
+    presence_ref: string;
+};
+
+export type { Room, User, RoomContextType, UserContextType, PlayerPresence };

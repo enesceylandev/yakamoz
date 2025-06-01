@@ -18,6 +18,7 @@ import { useGLTF } from "@react-three/drei";
 import * as THREE from "three";
 import { useFrame } from "@react-three/fiber";
 import { GLTF } from "three/examples/jsm/Addons.js";
+import { useRoomContext } from "@/app/context/roomContext";
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -42,13 +43,15 @@ type GLTFResult = GLTF & {
 };
 
 export const FishingBoat = forwardRef<THREE.Group>((props, ref) => {
+  const {user, setUser} = useRoomContext();
+
   FishingBoat.displayName = "FishingBoat";
   const group = useRef<THREE.Group>(null);
   const velocity = useRef(0);
-  const maxSpeed = 0.03;
-  const acceleration = 0.001;
+  const maxSpeed = 0.10;
+  const acceleration = 0.01;
   const deceleration = 0.0005;
-  const turnSpeed = 0.003;
+  const turnSpeed = 0.01;
 
   const { nodes, materials } = useGLTF(
     "/models/fishing_boat.glb",
@@ -84,7 +87,7 @@ export const FishingBoat = forwardRef<THREE.Group>((props, ref) => {
 
     if (keysPressed["a"]) {
       boat.rotation.y += turnSpeed;
-    }
+    };
     if (keysPressed["d"]) boat.rotation.y -= turnSpeed;
 
     if (keysPressed["w"]) {
